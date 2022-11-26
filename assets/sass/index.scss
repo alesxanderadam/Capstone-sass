@@ -5,7 +5,8 @@ $bg-grey: #5a5a5a;
 $bg-pink: #dc4f72;
 // color
 $text-light: white;
-$text-dark: black;
+$text-linear-white: #F7F9FC;
+$text-dark: #2c3038;
 $text-pink: #dc4f72;
 $text-grey: #5a5a5a;
 // font-size
@@ -26,6 +27,15 @@ $fw-4: 400;
 $fw-6: 600;
 $fw-7: 700;
 
+*{ 
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
 
 @mixin a($fz, $color, $fw) {
     font-size: $fz;
@@ -33,38 +43,102 @@ $fw-7: 700;
     font-weight:$fw;
 }
 
-@mixin p($fz, $lh, $color, $d-block, $fw) {
-    font-size: $text-l;
-    line-height: $text-24xl;
-    color: $text-grey;
+@mixin bg-color-hover($bg-blog, $color-blog) {
+    background-color:$bg-blog;
+    color: $color-blog;
 }
+
 @mixin header {
-    background-color: #fff;
+    // background-color: #fff;
+    // padding: 0px;
+    // transition: all 0.4s ease 0s;
+    // height: 90px;
+    // display: grid;
+    // align-items: center;
+    // box-shadow: 0 3px 9px rgb(0 0 0 / 5%);
     padding: 0px;
-    transition: all 0.4s ease 0s;
-    height: 90px;
+    background-color: #fff;
+    height: 70px;
+    border-bottom: none;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 5%);
+}
+.button-theme{
+    color: $text-pink;
+    transition: 0.3s ease-out;
+    display: inline-block;
+    line-height: 52px;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0px 30px;
+    text-transform: uppercase;
+    border: 1px solid $text-pink;
+    &:hover{
+        @include bg-color-hover($bg-pink,$text-light)
+    }
+}
+// Get started
+@mixin content-start {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #ffffff;
+    background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.92)), url(../../assets/img/banner.jpg);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
     display: grid;
     align-items: center;
-    box-shadow: 0 3px 9px rgb(0 0 0 / 5%);
+    padding-top: 5rem;
 }
-
+@mixin content-left {
+    h3{
+        @include a($text-5xl, $text-dark, $fw-6);
+        line-height: 57.5px;
+    }
+    p{
+        @include a($text-xl, $text-grey, $fw-4);
+        line-height: $text-3xl;
+        max-width: 450px;
+    }
+    a{
+        text-decoration: none;
+       @extend .button-theme;
+       border-radius: 3px;
+    }
+}
 @mixin sub-title {
+    padding: 20px 0 10px 0;
     h6{
-    font-size: $text-l;
+    @include a($text-xl, $text-pink, $fw-6);
     line-height: $text-2xl;
-    font-weight: $fw-7;
-    color: $text-pink;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: $text-tiny;
     }
     h3{
-    color: $text-dark;
-    font-size: $text-46xl;
+    @include a($text-46xl, $text-dark, $fw-6);
     line-height: 1;
-    font-weight: $fw-7;
+    }
+    p{
+        padding-top: 20px;
+        @include a($text-l, $text-grey, $fw-4);
     }
 }
-
+// for you
+@mixin s-block {
+    border-radius: $text-tiny;
+    transition: 0.3s ease-in;
+    background: $text-linear-white;
+    padding: 3rem 2rem;
+    border: 1px solid $text-linear-white;
+    &:hover{
+        transition: 0.3s ease-in;
+        background-color: #ffffff;
+        border: 1px solid #eee;
+        box-shadow:  0 0.5rem 1rem rgba(0, 0, 0, 0.09);;
+        transform: translateY(-0.5rem);
+    }
+}
 // User for blog
 @mixin grid-info {
     border-radius: $text-tiny;
@@ -92,19 +166,8 @@ $fw-7: 700;
     border-bottom-right-radius: 6px;
 }
 
-@mixin bg-color-blog($bg-blog, $color-blog) {
-    background-color:$bg-blog;
-    color: $color-blog;
-}
+
 // End use blog
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-}
 
 header{
     @media only screen and (max-width: 1440px){
@@ -161,7 +224,7 @@ header{
                 text-transform: uppercase;
                 border: 1px solid $text-pink;
                 &:hover{
-                    @include bg-color-blog($bg-pink,$text-light)
+                    @include bg-color-hover($bg-pink,$text-light)
                 }
             }
             .nav-link{
@@ -202,5 +265,91 @@ header{
                 }
             }
         }  
+    }
+}
+
+section.get-start{
+    margin-top: 110px !important;
+    .content{
+        @include content-start;
+
+        .content-left{
+            @include content-left;
+        }
+    }
+}
+
+section.for-you{
+    .header-section{
+        max-width: 750px;
+        @include sub-title;
+    }
+    .s-block{
+        @include s-block;
+        a{
+            text-decoration: none;
+            h3{
+                padding-top: $text-24xl;
+                @include a($text-27xl, $text-dark, $fw-6);
+                line-height: 35px;
+            }
+            p{
+                margin-top: 15px;
+                @include a($text-l, $text-grey, $fw-6);
+            }
+        }
+    }
+}
+
+section.about-company{
+    background-color: $text-linear-white;
+    .book-info{
+        @include sub-title;
+        h6{
+            font-size: $text-l;
+        }
+        h3{
+            font-size: $text-3xl;
+        }
+        button{
+            background-color: $bg-pink;
+            padding: 15px 40px;
+        }
+    }
+    img.img-curve{
+        border-radius: $text-tiny;
+        transition: 0.3s ease-in-out;
+        &:hover{
+            transform: translateY(-10px);
+            transition: 0.3s ease-in-out;
+        }
+    }
+    .gallery-inner{
+        margin-top: 100px;
+        .stats_info{
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: $text-tiny;
+        box-shadow:  0 3px 9px rgb(0 0 0 / 5%);
+        transition: 0.3s ease;
+        border: 1px solid #eee;
+
+        h4{
+            font-size: $text-2xl;
+            color: $text-dark;
+        }
+        p:first-of-type{
+            font-size: $text-5xl;
+            line-height: 1;
+            color: $text-pink;
+            font-weight: $fw-7;
+            margin-bottom: $text-l;
+            margin-top: 10px;
+        }
+        p:last-of-type{ 
+            font-size: $text-l;
+            color: $text-dark;
+            }
+        }
     }
 }

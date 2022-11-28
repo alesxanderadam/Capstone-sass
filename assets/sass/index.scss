@@ -471,7 +471,8 @@ section.news {
 
                 img {
                     border-radius: $text-tiny $text-tiny 0px 0px !important;
-                    // @include img-hover;
+                    filter: grayscale(1);
+                    transition: all 0.5s;
                 }
 
                 p {
@@ -548,6 +549,10 @@ section.news {
             &:hover {
                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.09);
                 transform: translateY(-10px);
+
+                img {
+                    filter: grayscale(0);
+                }
 
                 .blog-info {
                     h4 {
